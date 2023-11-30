@@ -1,0 +1,17 @@
+/.vs
+*.exe
+*.log
+*.bin
+*.apk
+/Library/
+/Temp
+/Assets/VSCode
+/obj
+/.vscode/
+*.sln
+*.userprefs
+*.csproj
+*.iml
+*.DotSettings.user
+/.vsconfig
+/UserSettings
