@@ -38,6 +38,9 @@ namespace ncn.PlayerSettings
             // Підписка на метод OnInteract
             _controller.Controller.Interact.started += OnInteract;
 
+            _controller.Controller.Sprint.performed += OnSprint;
+            _controller.Controller.Sprint.canceled += OnSprint;
+
 #if UNITY_EDITOR
             _controller.Controller.RestartLevel.started += Restart;
 #endif
@@ -72,6 +75,12 @@ namespace ncn.PlayerSettings
         /// <param name="context">Дані про те що ми нажали на кнопку</param>
         private void OnInteract(InputAction.CallbackContext context) =>
             _playerSystem.OnCheckObjectsInRay();
+
+        private void OnSprint(InputAction.CallbackContext context)
+        {
+            if(context.performed) _playerSystem.Sprint(true);
+            if(context.canceled) _playerSystem.Sprint(false);
+        }
 
 
 #if UNITY_EDITOR

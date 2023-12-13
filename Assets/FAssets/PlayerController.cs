@@ -62,6 +62,15 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ab7ab1a-f814-4f5b-94b1-8e30f4ab84a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88c00580-6613-43ea-8f9a-5f174f140134"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_Controller_MouseLook = m_Controller.FindAction("MouseLook", throwIfNotFound: true);
         m_Controller_RestartLevel = m_Controller.FindAction("RestartLevel", throwIfNotFound: true);
         m_Controller_Interact = m_Controller.FindAction("Interact", throwIfNotFound: true);
+        m_Controller_Sprint = m_Controller.FindAction("Sprint", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,6 +250,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputAction m_Controller_MouseLook;
     private readonly InputAction m_Controller_RestartLevel;
     private readonly InputAction m_Controller_Interact;
+    private readonly InputAction m_Controller_Sprint;
     public struct ControllerActions
     {
         private @PlayerController m_Wrapper;
@@ -237,6 +259,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         public InputAction @MouseLook => m_Wrapper.m_Controller_MouseLook;
         public InputAction @RestartLevel => m_Wrapper.m_Controller_RestartLevel;
         public InputAction @Interact => m_Wrapper.m_Controller_Interact;
+        public InputAction @Sprint => m_Wrapper.m_Controller_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_Controller; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +281,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Sprint.started += instance.OnSprint;
+            @Sprint.performed += instance.OnSprint;
+            @Sprint.canceled += instance.OnSprint;
         }
 
         private void UnregisterCallbacks(IControllerActions instance)
@@ -274,6 +300,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Sprint.started -= instance.OnSprint;
+            @Sprint.performed -= instance.OnSprint;
+            @Sprint.canceled -= instance.OnSprint;
         }
 
         public void RemoveCallbacks(IControllerActions instance)
@@ -297,5 +326,6 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         void OnMouseLook(InputAction.CallbackContext context);
         void OnRestartLevel(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
 }
